@@ -3,16 +3,45 @@ import Head from "next/head";
 import { useEffect, useState } from "react";
 
 export default function Home() {
-  const [storyOptions, setStoryOptions] = useState(['I don\'t like my name', 'I absolute love my name', 'My dad seems to be going insane', 'The last and final option']);
-  const [story, setStory] = useState("My name is Christian Delamar no matter what my dad tells you.");
+  const [storyOptions, setStoryOptions] = useState([]);
+  const [story, setStory] = useState("");
+  const [isLoaded, setLoaded] = useState(false);
+    useEffect(() => {
+	  async function fetchData() {
+			const storyStart = await fetch("/api/startStory", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+			});
+			const start = await storyStart.json();
 
-    // useEffect(() => {
-    //   console.log(`Selected option: ${selectedOption}`);
-    // }, [selectedOption])
+			setStory(start.intro);
+
+			const initialOptions = await fetch("/api/generateOptions", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({ story: start.intro }),
+			});
+			const data = await initialOptions.json();
+
+			let options = ["", "", "", ""];
+			data.options.forEach((choice, index) => {
+				options[index] = choice.text;
+			});
+			setStoryOptions(options);
+			setLoaded(true);
+	  }
+      if(!isLoaded){
+		fetchData();
+	  }
+    }, [])
 
   async function submitOption(option) {
     
-    const response = await fetch("/api/generate", {
+    const response = await fetch("/api/generateOptions", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",

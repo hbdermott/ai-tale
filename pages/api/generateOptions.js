@@ -1,9 +1,4 @@
-import { Configuration, OpenAIApi } from "openai";
-
-const configuration = new Configuration({
-  apiKey: process.env.OPENAI_API_KEY,
-});
-const openai = new OpenAIApi(configuration);
+import openai from './initOpenAI'
 
 export default async function (req, res) {
   const completion = await openai.createCompletion("text-curie-001", {
