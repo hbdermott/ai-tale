@@ -1,0 +1,37 @@
+.backgroundImage {
+    filter: blur(3px) brightness(0.35);
+    z-index: -1;
+}
+
+.body {
+    font-family: 'Caveat', cursive;
+}
+
+.story {
+    height: 100%;
+    width: 100%;
+    backdrop-filter: brightness(0.75) blur(2px);
+    line-height: 3.5rem;
+    font-size: xx-large;
+    z-index: 5;
+    overflow-y: scroll;
+}
+
+.story::-webkit-scrollbar-track{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	border-radius: 10px;
+	background-color: #F5F5F555;
+}
+
+.story::-webkit-scrollbar
+{
+	width: 12px;
+	background-color: #F5F5F500;
+}
+
+.story::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: #313131;
+}
