@@ -15,6 +15,7 @@
     font-size: xx-large;
     z-index: 5;
     overflow-y: scroll;
+    color: antiquewhite;
 }
 
 .story::-webkit-scrollbar-track{
